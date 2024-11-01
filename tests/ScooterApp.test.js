@@ -15,19 +15,15 @@ describe("registerUser method tests", () => {
   });
 
   test("returns if user is a minor", () => {
-    expect(() =>
-      scooterApp
-        .registerUser("minor user", "test123", 17)
-        .toThrow("too young to register")
+    expect(() => scooterApp.registerUser("minor user", "test123", 17)).toThrow(
+      "too young to register"
     );
   });
 
   test("returns if already registered", () => {
     scooterApp.registerUser("Joe Bloggs", "test123", 21);
-    expect(() =>
-      scooterApp
-        .registerUser("Joe Bloggs", "test123", 21)
-        .toThrow("already registered")
+    expect(() => scooterApp.registerUser("Joe Bloggs", "test123", 21)).toThrow(
+      "already registered"
     );
   });
 
@@ -53,7 +49,7 @@ describe("loginUser method tests", () => {
   test("login throws with wrong password", () => {
     scooterApp.registerUser("Joe Bloggs", "test123", 21);
     expect(() => scooterApp.loginUser("Joe Bloggs", "test234")).toThrow(
-      "incorrect password"
+      "Username or password is incorrect"
     );
   });
 });
@@ -96,8 +92,8 @@ describe("createScooter method tests", () => {
   });
   test("throws error on unexistent station", () => {
     expect(() =>
-      scooterApp.createScooter("ketchup").toThrow("no such station")
-    );
+      scooterApp.createScooter("ketchup")).toThrow("no such station")
+    ;
   });
 });
 
@@ -118,14 +114,14 @@ describe("Tests for dockScooter", () => {
     scooterApp.dockScooter(scooter, "Park");
     expect(() =>
       scooterApp
-        .dockScooter("Park", scooter)
+        .dockScooter( scooter, "Park"))
         .toThrow("scooter already at station")
-    );
+    ;
   });
   test("throws error with unexistent station", () => {
     expect(() =>
-      scooterApp.dockScooter("egg", scooter).toThrow("no such station")
-    );
+      scooterApp.dockScooter("egg", scooter)).toThrow("no such station")
+    ;
   });
 });
 
@@ -153,3 +149,15 @@ describe("Tests for rentScooter", () => {
     );
   });
 });
+
+describe("Testing console logs", () => {
+  const scooterApp = new ScooterApp()
+  const consoleSpy = jest.spyOn(console, 'log')
+  scooterApp.print()
+
+  test("Should call log 5 times", () => {
+    expect(consoleSpy).toHaveBeenCalledTimes(15)
+  })
+
+
+})
