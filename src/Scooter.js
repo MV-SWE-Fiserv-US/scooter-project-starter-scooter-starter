@@ -40,12 +40,12 @@ class Scooter {
           console.log(`charge is at ${this.charge}%`);
           this.charge += 15;
         }
-      }, 250);
+      }, 1);
     });
   }
 
   async requestRepair() {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 1));
     this.isBroken = false;
     console.log("repair complete");
   }

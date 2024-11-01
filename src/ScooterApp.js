@@ -19,11 +19,12 @@ class ScooterApp {
   }
 
   loginUser(username, password) {
-    const user = this.registeredUsers[username];
-    if (user.login(password)) {
+    try {
+      const user = this.registeredUsers[username];
+      user.login(password);
       console.log("user has been logged in");
       return true;
-    } else {
+    } catch (err) {
       throw new Error("Username or password is incorrect");
     }
   }
@@ -62,7 +63,7 @@ class ScooterApp {
     const stationArr = this.stations[station];
     const serialNo = scooter.serial;
     for (scooter of stationArr) {
-      if (scooter.serial === serialNo) return true;
+      return scooter.serial === serialNo;
     }
     return false;
   }
@@ -71,19 +72,16 @@ class ScooterApp {
     const stationArr = this.stations[scooter.station];
     const serialNo = scooter.serial;
 
-    if (scooter.user !== null) {
+    try {
+      const serialIndex = stationArr.findIndex((el) => el.serial === serialNo);
+      stationArr.splice(serialIndex, 1);
+      scooter.rent(user);
+      console.log("scooter is rented");
+      return true;
+    } catch (err) {
+      console.error(err);
       throw new Error("scooter already rented");
     }
-
-    for (let i = 0; i < stationArr.length; i++) {
-      if (stationArr[i].serial === serialNo) {
-        stationArr.splice(i, 1);
-        scooter.rent(user);
-        console.log("scooter is rented");
-        return true;
-      }
-    }
-    throw new Error("scooter unexistent");
   }
 
   print() {
