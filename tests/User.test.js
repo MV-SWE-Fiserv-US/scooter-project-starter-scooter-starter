@@ -9,9 +9,9 @@ describe("User property tests", () => {
     expect(typeof user.username).toBe("string");
   })
   // test password
-  // Hello
+  // Hello 
 
-  // test age
+  // testing 
 })
 
 
